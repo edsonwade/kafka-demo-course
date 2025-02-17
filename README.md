@@ -70,8 +70,14 @@ kafka-configs --alter --entity-type topics --entity-name demo_java --add-config 
 
 ### Producer Acknowledgements
 **Acks All**:
+ ```bash
 kafka-console-producer --broker-list localhost:9092 --topic demo_java --producer-property acks=all
+ ```
 **Acks 1**:
+ ```bash
 kafka-console-producer --broker-list localhost:9092 --topic demo_java --producer-property acks=1
+ ```
 **Acks 0**:
+ ```bash
 kafka-console-producer --broker-list localhost:9092 --topic demo_java --producer-property acks=0
+ ```
