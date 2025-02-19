@@ -1,6 +1,6 @@
 package code.with.vanilson.consumidor;
 
-import code.with.vanilson.PropertiesUtils;
+import code.with.vanilson.utils.PropertiesUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.errors.WakeupException;
@@ -18,6 +18,8 @@ import java.util.Properties;
  * @version 1.0
  * @since 2025-02-19
  */
+
+@SuppressWarnings("all")
 public class ConsumerDemoWithShutdown {
     private static final Logger log = LoggerFactory.getLogger(ConsumerDemoWithShutdown.class.getName());
     private static final Properties props = PropertiesUtils.getProperties();
@@ -52,7 +54,7 @@ public class ConsumerDemoWithShutdown {
      *
      * @param consumers - consumidor Kafka.
      */
-    private static void pollMessages(KafkaConsumer<String, String> consumers) {
+    static void pollMessages(KafkaConsumer<String, String> consumers) {
         try {
             // Subscrever o consumidor Kafka ao tópico Kafka chamado "demo_java".
             consumers.subscribe(List.of("demo_java"));

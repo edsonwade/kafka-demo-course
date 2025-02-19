@@ -1,4 +1,6 @@
-package code.with.vanilson;
+package code.with.vanilson.utils;
+
+import org.apache.kafka.clients.consumer.CooperativeStickyAssignor;
 
 import java.util.Properties;
 
@@ -16,7 +18,11 @@ public class PropertiesUtils {
     public static final String KEY_DESERIALIZER = "org.apache.kafka.common.serialization.StringDeserializer";
     public static final String VALUE_DESERIALIZER = "org.apache.kafka.common.serialization.StringDeserializer";
 
-   public static Properties getProperties() {
+    private PropertiesUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static Properties getProperties() {
         Properties props = new Properties();
         // Configuração do servidor Kafka (Broker) para o consumidor Kafka.
         props.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
@@ -33,10 +39,18 @@ public class PropertiesUtils {
         props.setProperty("auto.offset.reset", OFFSET_RESET);
         // Configura o desserializador de chave do consumidor Kafka. O desserializador de chave é usado para converter a chave da mensagem de bytes para String.
         props.setProperty("key.deserializer", KEY_DESERIALIZER);
-        ;// Podes
+        // Podes
         // Substituir por props.setProperty("key.deserializer", StringDeserializer.class.getName()); é a mesma coisa.
         // Configura o desserializador de valor do consumidor Kafka. O desserializador de valor é usado para converter o valor da mensagem de bytes para String.
         props.setProperty("value.deserializer", VALUE_DESERIALIZER);
+
+        // Configuração do particionador de atribuição do consumidor Kafka. O particionador de atribuição é usado para determinar como as partições são atribuídas aos consumidores Kafka.
+        // O particionador de atribuição pode ser definido como "org.apache.kafka.clients.consumer.RangeAssignor" ou "org.apache.kafka.clients.consumer.RoundRobinAssignor".
+        // Se o particionador de atribuição for definido como "org.apache.kafka.clients.consumer.RangeAssignor", as partições serão atribuídas aos consumidor Kafka com base num intervalo de partições.
+        // Se o particionador de atribuição for definido como "org.apache.kafka.clients.consumer.RoundRobinAssignor", as partições serão atribuídas aos consumidores Kafka de forma circular.
+        props.setProperty("partition.assignment.strategy", CooperativeStickyAssignor.class.getName()); // Podes
+        // substituir por props.setProperty("partition.assignment.strategy", "org.apache.kafka.clients.consumer.CooperativeStickyAssignor"); é a mesma coisa.
+
         return props;
     }
 }
