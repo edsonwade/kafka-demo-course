@@ -1,4 +1,4 @@
-package code.with.vanilson;
+package code.with.vanilson.produtor;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -32,8 +32,8 @@ public class ProducerDemo {
             //Quando usamos a chave, o Kafka garante que a mensagem com a mesma chave será enviada para a mesma
             // partição.
             // Se a chave for nula, o Kafka escolherá aleatoriamente uma partição para enviar a mensagem.
-            ProducerRecord<String, String> record = new ProducerRecord<>("demo_java", "key1", "Message 1 for key1");
-            ProducerRecord<String, String> record2 = new ProducerRecord<>("demo_java", "key1", "Message 2 for key1");
+            ProducerRecord<String, String> record = new ProducerRecord<>("demo_java", "key1", "Hello Kafka World!");
+            ProducerRecord<String, String> record2 = new ProducerRecord<>("demo_java", "key1", "Hello Kafka World 2!");
 
             // Enviar a mensagem para o tópico Kafka.
             producer.send(record);

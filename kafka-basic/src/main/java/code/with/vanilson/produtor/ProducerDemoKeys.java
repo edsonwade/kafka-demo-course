@@ -1,4 +1,4 @@
-package code.with.vanilson;
+package code.with.vanilson.produtor;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
