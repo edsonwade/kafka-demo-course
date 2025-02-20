@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>kafka-basic</module>
+        <module>kafka-producer-wikimedia</module>
     </modules>
 
 

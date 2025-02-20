@@ -54,7 +54,7 @@ public class ProducerDemoKeys {
         }
     }
 
-    private static Properties getProperties() {
+     public static Properties getProperties() {
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("key.serializer", StringSerializer.class.getName());
