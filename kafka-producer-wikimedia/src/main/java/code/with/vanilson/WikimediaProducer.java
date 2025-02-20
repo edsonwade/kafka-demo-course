@@ -27,7 +27,7 @@ public class WikimediaProducer {
         Properties properties = ProducerDemoKeys.getProperties();
 
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(properties)) {
-            String topic = "wikimedia.recentchange";
+            String topic = "wikimedia-recentchange";
             // Criar um manipulador de eventos para o EventSource
             EventHandler handler = new WikimediaChangeHandler(producer, topic);
             // URL do servidor de ‘streaming’ Wikimedia RecentChange API
