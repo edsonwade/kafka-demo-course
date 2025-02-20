@@ -1,4 +1,4 @@
-package code.with.vanilson;
+package code.with.vanilson.produtor;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -17,6 +17,7 @@ import java.util.Properties;
  */
 public class ProducerDemoKeys {
     private static final Logger log = LoggerFactory.getLogger(ProducerDemoKeys.class.getName());
+    public static final String IS_BOOLEAN = String.valueOf(Boolean.TRUE);
 
     public static void main(String[] args) {
         Properties properties = getProperties();
@@ -54,11 +55,19 @@ public class ProducerDemoKeys {
         }
     }
 
-    private static Properties getProperties() {
+    public static Properties getProperties() {
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer", StringSerializer.class.getName());
+        properties.setProperty("acks", "all");
+        properties.setProperty("retries", Integer.toString(Integer.MAX_VALUE));
+        properties.setProperty("enable.idempotence", IS_BOOLEAN);
+        //configuração alta para o produtor
+        properties.setProperty("linger.ms.config", "20");
+        properties.setProperty("compression.type", "snappy");
+        properties.setProperty("batch.size", Integer.toString(32 * 1024));
+
         return properties;
     }
 }

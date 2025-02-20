@@ -113,7 +113,7 @@ mensagem na partição.
       a partição ```
 
 - **kafka-producer-network-thread | producer-1**: Indica a thread do produtor Kafka que está enviando as mensagens.
-- **INFO code.with.vanilson.ProductorDemoAcks**: Indica que a mensagem de log vem da classe ProductorDemoAcks.
+- **INFO code.with.vanilson.produtor.ProductorDemoAcks**: Indica que a mensagem de log vem da classe ProductorDemoAcks.
 - **Sent message with key: key_X to partition: Y, offset: -1**: Indica que a mensagem com a chave ```key_X``` foi
   enviada para a partição ```Y```, mas o ```offse```t é ```-1``` porque o produtor não recebeu confirmação do broker.
 -
@@ -153,7 +153,7 @@ Isso ocorre porque o líder da partição reconhece a mensagem e retorna o ```of
   partição ```0``` com um offset de ```9```.
 
 - **kafka-producer-network-thread | producer-1**: Indica a thread do produtor Kafka que envia as mensagens.
-- **INFO code.with.vanilson.ProductorDemoAcks**: Indica que a mensagem de log vem da classe ProductorDemoAcks.
+- **INFO code.with.vanilson.produtor.ProductorDemoAcks**: Indica que a mensagem de log vem da classe ProductorDemoAcks.
 - **Sent message with key: key_X to partition: Y, offset: Z**: Indica que a mensagem com a chave ```key_X``` foi enviada
   para a partição ```Y``` e recebeu o ```offset``` Z após ser reconhecida pelo líder da partição.
   Este comportamento é esperado quando ```acks``` é configurado para ```1```, pois o produtor espera por um
@@ -193,7 +193,7 @@ partição.
 - **Sent message with key: key_3 to partition: 0, offset: 13**: A mensagem com a chave ```key_3``` foi enviada para a
 
 - **kafka-producer-network-thread | producer-1**: Indica a thread do produtor Kafka que envia as mensagens.
-- **INFO code.with.vanilson.ProductorDemoAcks**: Indica que a mensagem de log vem da classe ProductorDemoAcks.
+- **INFO code.with.vanilson.produtor.ProductorDemoAcks**: Indica que a mensagem de log vem da classe ProductorDemoAcks.
 - **Sent message with key: key_X to partition: Y, offset: Z**: Indica que a mensagem com a chave ```key_X``` foi enviada
   para a partição ```Y``` e recebeu o ```offset``` Z após ser reconhecida por todos os replicas da partição.
   Este comportamento é esperado quando ```acks``` é configurado para ```all```, pois o produtor espera por um

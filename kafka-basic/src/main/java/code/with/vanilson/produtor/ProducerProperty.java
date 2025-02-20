@@ -1,4 +1,4 @@
-package code.with.vanilson;
+package code.with.vanilson.produtor;
 
 /**
  * ProducerProperty
@@ -7,6 +7,7 @@ package code.with.vanilson;
  * @version 1.0
  * @since 2025-02-17
  */
+@SuppressWarnings("unused")
 record ProducerProperty(String key, String value) {
     public ProducerProperty {
         if (key == null || key.isBlank()) {

@@ -1,4 +1,4 @@
-package code.with.vanilson;
+package code.with.vanilson.produtor;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -44,13 +44,14 @@ public class ProductorDemoAcks {
     private static void sendMessages(Properties properties) {
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(properties)) {
             for (int i = 0; i < 10; i++) {
-                String topic = "acks_topic";
+                String topic = "demo_java";
                 String key = "key_" + i;
                 String value = "Hello world!! knowlegde is power " + i;
                 ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
                 producer.send(record, (metadata, exception) -> {
                     if (exception == null) {
-                        log.info("Sent message with key: {} to partition: {}, offset: {}", key, metadata.partition(),
+                        log.info("Sent message with key: {} | partition: {} |, offset: {} |", key,
+                                metadata.partition(),
                                 metadata.offset());
                     } else {
                         log.error("Error while sending message: {}", exception.getMessage());

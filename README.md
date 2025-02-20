@@ -32,7 +32,7 @@ This project demonstrates how to create a Kafka producer in Java and send messag
 
 3. **Run the producer**:
     ```bash
-    mvn exec:java -Dexec.mainClass="code.with.vanilson.ProducerDemo"
+    mvn exec:java -Dexec.mainClass="code.with.vanilson.produtor.ProducerDemo"
     ```
 
 ## Verifying Message Delivery
