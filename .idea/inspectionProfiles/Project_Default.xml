@@ -10,16 +10,25 @@
         <list>
           <option value="kafka-producer-wikimedia" />
           <option value="kafka-producer-wikimedia" />
+          <option value="kafka-consumer-opensearch" />
+          <option value="kafka-consumer-opensearch" />
+          <option value="kafka-consumer-opensearch" />
         </list>
       </option>
       <option name="ignoredPackages">
         <list>
           <option value="com.squareup.okio:okio:2.8.0" />
           <option value="org.jetbrains.kotlin:kotlin-stdlib:1.4.10" />
+          <option value="com.squareup.okio:okio:2.8.0" />
+          <option value="org.jetbrains.kotlin:kotlin-stdlib:1.4.10" />
+          <option value="com.google.protobuf:protobuf-java:3.22.3" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
           <option value="Not exploitable" />
         </list>
