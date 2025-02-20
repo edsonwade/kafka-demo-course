@@ -54,11 +54,19 @@ public class ProducerDemoKeys {
         }
     }
 
-     public static Properties getProperties() {
+    public static Properties getProperties() {
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer", StringSerializer.class.getName());
+        // Configurar o número de tentativas de reenvio
+        properties.setProperty("retries", "3");
+        // Configurar o tempo de espera entre tentativas
+        properties.setProperty("retry.backoff.ms", "100");
+        // Habilitar idempotência para evitar mensagens duplicadas
+        properties.setProperty("enable.idempotence", String.valueOf(Boolean.TRUE));
+        // Configurar o tempo limite de entrega
+        properties.setProperty("delivery.timeout.ms", "120000"); // 2 minutos
         return properties;
     }
 }
