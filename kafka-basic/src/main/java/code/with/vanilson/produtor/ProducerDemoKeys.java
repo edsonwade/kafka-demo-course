@@ -17,6 +17,7 @@ import java.util.Properties;
  */
 public class ProducerDemoKeys {
     private static final Logger log = LoggerFactory.getLogger(ProducerDemoKeys.class.getName());
+    public static final String IS_BOOLEAN = String.valueOf(Boolean.TRUE);
 
     public static void main(String[] args) {
         Properties properties = getProperties();
@@ -59,14 +60,6 @@ public class ProducerDemoKeys {
         properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer", StringSerializer.class.getName());
-        // Configurar o número de tentativas de reenvio
-        properties.setProperty("retries", "3");
-        // Configurar o tempo de espera entre tentativas
-        properties.setProperty("retry.backoff.ms", "100");
-        // Habilitar idempotência para evitar mensagens duplicadas
-        properties.setProperty("enable.idempotence", String.valueOf(Boolean.TRUE));
-        // Configurar o tempo limite de entrega
-        properties.setProperty("delivery.timeout.ms", "120000"); // 2 minutos
         return properties;
     }
 }
