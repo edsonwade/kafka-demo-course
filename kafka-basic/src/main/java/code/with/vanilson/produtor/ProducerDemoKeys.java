@@ -60,6 +60,14 @@ public class ProducerDemoKeys {
         properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer", StringSerializer.class.getName());
+        properties.setProperty("acks", "all");
+        properties.setProperty("retries", Integer.toString(Integer.MAX_VALUE));
+        properties.setProperty("enable.idempotence", IS_BOOLEAN);
+        //configuração alta para o produtor
+        properties.setProperty("linger.ms.config", "20");
+        properties.setProperty("compression.type", "snappy");
+        properties.setProperty("batch.size", Integer.toString(32 * 1024));
+
         return properties;
     }
 }
