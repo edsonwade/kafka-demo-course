@@ -45,10 +45,6 @@ public class OpenSearchConsumer {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(3000));
                 int recordCount = records.count();
                 log.info("Received {} {}", recordCount, " records");
-
-                if (recordCount == 0) {
-                    continue;
-                }
                 // loop through the records and send them to opensearch
 
                 for (var record : records) {
@@ -56,12 +52,17 @@ public class OpenSearchConsumer {
                     indexRecord(record, openSearchClient);
 
                 }
+                // commit the offsets
+                consumer.commitSync();
+                log.info("Offsets have been committed");
 
             }
 
         } catch (IOException e) {
             log.error("An error occurred:{} ", e.getMessage());
+
         }
+
     }
 
     /**

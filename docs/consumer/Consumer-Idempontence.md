@@ -4,9 +4,9 @@ O código `OpenSearchConsumer.java` é um consumidor Kafka que lê mensagens de 
 
 ### Alteração Feita
 
-Para tornar o consumidor idempotente, foi implementada uma verificação de idempotência. Isso é feito extraindo um ID único de cada mensagem Kafka e usando esse ID ao indexar a mensagem no OpenSearch. Se uma mensagem com o mesmo ID já foi indexada, ela não será indexada novamente.
+Para tornar o consumidor idempotente, foi implementada uma verificação de idempotência. Isso é feito extraindo um ID único de cada mensagem, Kafka e usando esse ID ao indexar a mensagem no OpenSearch. Se uma mensagem com o mesmo ID já foi indexada, ela não será indexada novamente.
 
-### README em Português
+### README em português
 
 ```markdown
 # Consumidor OpenSearch Idempotente
