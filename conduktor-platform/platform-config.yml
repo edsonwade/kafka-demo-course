@@ -33,6 +33,10 @@ clusters: # Cluster and schema registry configuration (optional)
 #      - url: http://kafka-connect:8083
 #        name: full stack kafka connect
 
+#    kafkaConnects:
+#      - url: http://kafka-connect:8083
+#        name: full stack kafka connect
+
 ## on Opensearch dasboard, you can find the URL in the top right corner
 # http://localhost:5601/app/management/data/index_management/indices
 # http://localhost:5601/app/management/data/index_management/indices?_g=()
@@ -46,4 +50,4 @@ clusters: # Cluster and schema registry configuration (optional)
 #        "build_type": "docker",
 #        "number"
 #    }
-}
+#

@@ -9,22 +9,50 @@ services:
     ports:
       - "9200:9200"
       - "9600:9600" # required for Performance Analyzer
+    networks:
+      - kafka-consumer-net
+    healthcheck: # check if the service is up and running
+      test: [ "CMD-SHELL", "curl -f http://localhost:9200 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
 
   # console at http://localhost:5601/app/dev_tools#/console
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:1.2.0
     ports:
-      - 5601:5601
+      - "5601:5601"
     environment:
       OPENSEARCH_HOSTS: '["http://opensearch:9200"]'
       DISABLE_SECURITY_DASHBOARDS_PLUGIN: "true"
+    networks:
+      - kafka-consumer-net
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:5601 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
 
   prometheus:
     image: prom/prometheus:latest
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    container_name: prometheus
     ports:
       - "9090:9090"
+    volumes:
+      - "./src/main/resources/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
+      - prometheus-data:/prometheus
+    healthcheck: # check if the service is up and running
+      test: [ "CMD-SHELL", "wget --spider -q http://localhost:9090 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - kafka-consumer-net
 
   grafana:
     image: grafana/grafana:latest
@@ -34,3 +62,24 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
+    volumes:
+      - grafana-data:/var/lib/grafana
+    healthcheck: # check if the service is up and running
+      test: [ "CMD-SHELL", "curl -f http://localhost:3000 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - kafka-consumer-net
+
+
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+networks:
+  kafka-consumer-net:
+    driver: bridge

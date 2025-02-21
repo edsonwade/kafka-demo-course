@@ -1,5 +1,6 @@
 package code.with.vanilson;
 
+import com.google.gson.JsonParser;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -45,6 +46,11 @@ public class OpenSearchConsumer {
                 int recordCount = records.count();
                 log.info("Received {} {}", recordCount, " records");
 
+                if (recordCount == 0) {
+                    continue;
+                }
+                // loop through the records and send them to opensearch
+
                 for (var record : records) {
                     // send the data to opensearch
                     indexRecord(record, openSearchClient);
@@ -75,14 +81,47 @@ public class OpenSearchConsumer {
     private static void indexRecord(ConsumerRecord<String, String> record,
                                     RestHighLevelClient openSearchClient)
             throws IOException {
+        //Idepomtency check to ensure that the data is not sent to the cluster more than once.
+        //define an id  usin kafka record coordinates to ensure that the data is sent only once
+        // this is done by creating a unique id for each record using the kafka record coordinates
+        // and then checking if the record has been sent to the cluster before
+        // if it has been sent before then we skip it
+        // if it has not been sent before then we send it to the cluster
+        //Strategy 1
+        //String id = record.topic() + "_" + record.partition() + "_" + record.offset();
+
         try {
+            //Strategy 2 , where we extract the id from the json vallue
+            String id = extractIdFromJsonValue(record.value());
             IndexRequest indexRequest = new IndexRequest(WIKIMEDIA)
-                    .source(record.value(), XContentType.JSON);
+                    .source(record.value(), XContentType.JSON)
+                    .id(id);
 
             var indexResponse = openSearchClient.index(indexRequest, RequestOptions.DEFAULT);
-            log.info("Inserted {} document into opensearch: ", indexResponse.getId());
+            log.info("INFO opensearchConsumer -{} ", indexResponse.getId());
         } catch (OpenSearchStatusException e) {
             log.error("An error occurred while sending data to opensearch: {}", e.getMessage());
         }
+    }
+
+    /**
+     * Method to extract the id from the json value of the record to be sent to the opensearch cluster.
+     * The method uses the JsonParser class from the Gson library to parse the json value of the record
+     * and extract the id from the json value.
+     * The method returns the id of the record as a string.
+     *
+     * @param record the record to be sent to the opensearch cluster
+     * @param json   the json value of the record to be sent to the opensearch cluster
+     * @return the id of the record as a string
+     */
+    private static String extractIdFromJsonValue(String json) {
+        //gson library
+        return JsonParser.parseString(json)
+                .getAsJsonObject()
+                .get("meta")
+                .getAsJsonObject()
+                .get("id")
+                .getAsString();
+
     }
 }
