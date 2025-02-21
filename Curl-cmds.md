@@ -107,7 +107,7 @@ curl --max-time 30 "http://example.com"
 - `localhost:9200`
 - `127.0.0.1:9200`
 - `[::1]:9200`
-- `[::1]:5601` elasticsearch
+- `curl -X GET http://[::1]:5601` elasticsearch
 
 ### cURL Commands
 1. Create a new index

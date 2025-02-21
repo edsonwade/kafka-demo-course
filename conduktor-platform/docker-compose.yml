@@ -74,6 +74,12 @@ services:
         read_only: true
     environment:
       CDK_IN_CONF_FILE: /opt/conduktor/platform-config.yaml
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --spider -q http://localhost:8080 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
 
   conduktor-monitoring:
     hostname: conduktor-monitoring
@@ -81,3 +87,4 @@ services:
     image: conduktor/conduktor-console-cortex:1.31.0
     environment:
       CDK_CONSOLE-URL: "http://conduktor-console:8080"
+
