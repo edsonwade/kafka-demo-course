@@ -50,6 +50,7 @@ public class KafkaConsumerClient {
         props.setProperty("bootstrap.servers", "localhost:9092");
         props.setProperty("group.id", "consumer-opensearch-demo");
         props.setProperty("auto.offset.reset", "latest");
+        props.setProperty("enable.auto.commit", "false");
         props.setProperty("key.deserializer", StringDeserializer.class.getName());
         props.setProperty("value.deserializer", StringDeserializer.class.getName());
 
