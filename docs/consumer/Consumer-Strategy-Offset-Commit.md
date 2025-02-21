@@ -49,3 +49,25 @@ public static void main(String[] args) {
 
 Neste exemplo, o consumidor faz o commit dos offsets manualmente após processar cada lote de mensagens, garantindo que
 os offsets reflitam com precisão o ponto de processamento.
+
+## if we commit offsets before processing the data, we are in the scenario
+
+- we are in the scenario at most once delivery semantics
+
+## if we commit offsets after processing the data, we are in the scenario
+
+- we are in the scenario at least once delivery semantics
+
+## if we commit offsets exactly once, we are in the scenario
+
+- we are in the scenario exactly once delivery semantics
+
+### if we don't want to have duplicates in our target database
+we need to make sure the processing of the data is idempotent
+
+### what's a generic unique id that I can use for messages I receive from a consumer?
+Topic + Partition + Offset
+
+## if I want to replay data for a consumer, I should?
+- reset the offsets of the current consumer used group id to the beginning of the topic.
+- set the auto.offset.reset to earliest
