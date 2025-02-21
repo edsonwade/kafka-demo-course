@@ -54,7 +54,7 @@ public class ConsumerDemoWithShutdown {
      *
      * @param consumers - consumidor Kafka.
      */
-    static void pollMessages(KafkaConsumer<String, String> consumers) {
+    public static void pollMessages(KafkaConsumer<String, String> consumers) {
         try {
             // Subscrever o consumidor Kafka ao tópico Kafka chamado "demo_java".
             consumers.subscribe(List.of("demo_java"));
