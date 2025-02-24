@@ -1,0 +1,32 @@
+#spring:
+#  application:
+#    name: kafka-spring-demo
+#
+#server:
+#  port: 8086
+#
+### Consumer configurations
+#kafka:
+#  consumer:
+#    bootstrap-servers: 9092
+#    group-id: myGroup  # Removed the extra quote at the end
+#    auto-offset-reset: latest
+#    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    properties:
+#      spring.json.trusted.packages: "*"
+#
+#  ## Producer configurations
+#  producer:
+#    bootstrap-servers: localhost:9092
+#    acks: all
+#    enable-idempotence: true
+#    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    retries: 3
+#
+#
+#application:
+#  config:
+#    topics: twitter-topic
+#
