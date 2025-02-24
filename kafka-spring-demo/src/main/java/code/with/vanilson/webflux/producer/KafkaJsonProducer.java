@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@SuppressWarnings("unused")
 public class KafkaJsonProducer {
 
     @Value("${application.config.topics}")

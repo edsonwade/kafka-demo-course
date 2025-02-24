@@ -1,6 +1,7 @@
 package code.with.vanilson.webflux.consumer;
 
 import code.with.vanilson.webflux.payload.Student;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
+@SuppressWarnings("unused")
 public class KafkaConsumer {
 
     //@KafkaListener(topics = "twitter-topic", groupId = "MyGroup")
