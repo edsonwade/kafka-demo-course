@@ -33,14 +33,15 @@ public class ProducerDemoKeys {
             // Enviar 10 mensagens para o tópico Kafka chamado "demo_java". Isto é que chamamos sticky partitioning,
             // onde a mesma chave é enviada para a mesma partição.
             for (int j = 0; j < 2; j++) {
-                for (int i = 0; i <= 10; i++) {
+                for (int i = 0; i <= 10_000; i++) {
                     String topic = "demo_java";
                     String key = "truck_id " + i;
                     String value = "Hello world " + i;
                     ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
                     producer.send(record, (recordMetadata, e) -> {
                         if (e == null) {
-                            log.info("key :{}", key + "| Partition:{} " + recordMetadata.partition());
+                            log.info("key :{}", key + "| Partition: " + recordMetadata.partition()
+                                    + "| timestamp:" + recordMetadata.timestamp());
                         } else {
                             log.error("Error while sending message to Kafka {} ", e.getMessage());
                         }
